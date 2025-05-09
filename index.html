@@ -38,15 +38,15 @@
   <script>
     const kanjiDigits = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
 
-    fetch('counter.php')
-      .then(response => response.text())
+    fetch('https://api.countapi.xyz/hit/my-rpg-site/viewcount')
+      .then(response => response.json())
       .then(data => {
-        const kanji = data.trim().split('').map(d => kanjiDigits[parseInt(d)]).join('');
+        const count = data.value.toString();
+        const kanji = count.split('').map(d => kanjiDigits[parseInt(d)]).join('');
         document.getElementById('view-count').innerText = kanji;
       })
-      .catch(err => {
+      .catch(() => {
         document.getElementById('view-count').innerText = 'Error';
-        console.error('Failed to load view count:', err);
       });
   </script>
 </body>
