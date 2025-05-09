@@ -38,15 +38,17 @@
   <script>
     const kanjiDigits = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
 
-    fetch('https://api.countapi.xyz/hit/my-rpg-site/viewcount')
+    // Replace with SimpleCounterAPI
+    fetch('https://api.simplecounterapi.com/visit?apikey=demo-key&name=my-rpg-kanji')
       .then(response => response.json())
       .then(data => {
-        const count = data.value.toString();
+        const count = data.count.toString();
         const kanji = count.split('').map(d => kanjiDigits[parseInt(d)]).join('');
         document.getElementById('view-count').innerText = kanji;
       })
-      .catch(() => {
+      .catch((err) => {
         document.getElementById('view-count').innerText = 'Error';
+        console.error('Counter error:', err);
       });
   </script>
 </body>
