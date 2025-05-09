@@ -4,8 +4,26 @@
   <meta charset="UTF-8">
   <title>My RPG Game</title>
   <style>
-    body { font-family: Arial; text-align: center; }
-    iframe { width: 960px; height: 540px; border: none; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    iframe {
+      width: 960px;
+      height: 540px;
+      border: none;
+      margin: 20px 0;
+    }
+
+    #view-count {
+      font-size: 24px;
+      color: #333;
+      font-family: "Yu Mincho", "MS Mincho", serif;
+    }
   </style>
 </head>
 <body>
@@ -14,14 +32,21 @@
   <!-- Embed GDevelop Game -->
   <iframe src="gdevelop-game/index.html"></iframe>
 
-  <!-- View Counter -->
+  <!-- View Counter in Japanese Kanji -->
   <p>Page views: <span id="view-count">Loading...</span></p>
 
   <script>
+    const kanjiDigits = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+
     fetch('counter.php')
       .then(response => response.text())
       .then(data => {
-        document.getElementById('view-count').innerText = data;
+        const kanji = data.trim().split('').map(d => kanjiDigits[parseInt(d)]).join('');
+        document.getElementById('view-count').innerText = kanji;
+      })
+      .catch(err => {
+        document.getElementById('view-count').innerText = 'Error';
+        console.error('Failed to load view count:', err);
       });
   </script>
 </body>
